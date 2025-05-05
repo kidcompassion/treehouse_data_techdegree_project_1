@@ -5,8 +5,34 @@ Project 1 - A Number Guessing Game
 """
 
 # Import the random and statistics modules.
+import random
+import statistics
+
 
 # Create the start_game function.
+
+def start_game():
+    list_of_guesses = []
+    print("|******** Welcome to the number guessing game! *********|\n")
+    
+    username = str(input("Please enter your name: "))
+    
+    # Users can enter any name they want, but it has to be something.
+    # While the username is empty, keep prompting them to put their name.
+    while username == "":
+        username = str(input("You cannot leave this empty. Please enter your name: "))
+    
+
+    generated_num = random.randint(1, 11)
+    print(f"Number is {generated_num}")
+    guess = input(f"Hi {username}! I’ve just generated a number for you to guess. What do you think it is?")
+    list_of_guesses.append(guess)
+    while int(guess) != int(generated_num):
+        guess = input(f"Sorry, that wasn't correct. Guess again: ")
+        list_of_guesses.append(guess)
+
+    print(list_of_guesses)
+    print(f"You guessed {len(list_of_guesses)} times")
 # Write your code inside this function.
 
 #   When the program starts, we want to:
@@ -31,3 +57,4 @@ Project 1 - A Number Guessing Game
 
 
 # Kick off the program by calling the start_game function.
+start_game()
