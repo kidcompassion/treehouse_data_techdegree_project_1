@@ -42,6 +42,8 @@ def start_game(current_game_counter, username):
     #remove this later
     print(f"Number is {generated_num}")
     # Get the user's first guess
+
+
     # Set a switch to ensure any errors get re-tried
     first_guess = False
     print(f"Good luck, {username}! I’ve generated a secret number for you to guess.\n")
@@ -50,6 +52,10 @@ def start_game(current_game_counter, username):
         try:
             #Let the user guess. If the guess is valid, set the switch to True to break out of the loop.
             guess = int(input(f"What do you think the secret number is? \n"))
+            if guess > generated_num:
+                print("Too high!")
+            elif guess < generated_num:
+                print("Too low!")
             first_guess = True
         except ValueError:
             print("****", "I'm sorry, that's not a valid guess! Please enter an integer between 1 and 10. \n")
@@ -58,25 +64,22 @@ def start_game(current_game_counter, username):
     # once the guess is valid, add it to our list
     list_of_guesses.append(guess)
    
-   
-   
-    # until the guess matches the random number, keep guessing
     while guess != generated_num:
         
-        if guess> generated_num:
-            # if this is higher, alert the user
-            try:
-                guess = int(input(f"Too high. Guess again: \n"))
-                list_of_guesses.append(guess)
-            except ValueError:
-                print("***","Oops, invalid guess! Please enter an integer between 1 and 10. \n")
-        elif guess< generated_num:
-            #if this is lower
-            try:
-                guess = int(input(f"Too low. Guess again: \n"))
-                list_of_guesses.append(guess)
-            except ValueError:
-                print(f"****", "Whoops! That was invalid - please enter an integer between 1 and 10. \n")
+        
+            
+        
+        try:    
+            guess = int(input("Go again: "))
+            # If the guess is a number, give the user some feedback
+            if guess > generated_num:
+                print("Too high!")
+            elif guess < generated_num:
+                print("Too low!")
+
+        except ValueError:
+            print("Please enter an integer between 1 and 10")
+
 
 
     print(list_of_guesses)
