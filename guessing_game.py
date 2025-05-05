@@ -6,15 +6,19 @@ Project 1 - A Number Guessing Game
 
 # Import the random and statistics modules.
 import random
+import sys
 import statistics
 
 
 # Create the start_game function.
 
 def start_game():
+    # This will hold all guesses
     list_of_guesses = []
+    # Welcome the user
     print("|******** Welcome to the number guessing game! *********|\n")
     
+    # For fun, ask their name
     username = str(input("Please enter your name: "))
     
     # Users can enter any name they want, but it has to be something.
@@ -22,17 +26,58 @@ def start_game():
     while username == "":
         username = str(input("You cannot leave this empty. Please enter your name: "))
     
-
+    # Choose a random number
     generated_num = random.randint(1, 11)
+
+    
+
+
+
+    #remove this later
     print(f"Number is {generated_num}")
-    guess = input(f"Hi {username}! I’ve just generated a number for you to guess. What do you think it is?")
+    
+    # Get the user's guess
+    # add error handling
+    
+    try:
+        guess = int(input(f"Hi {username}! I’ve just generated a number for you to guess. What do you think it is?"))
+    except ValueError:
+        print("This is a value error")
+    
+    
+    
+    #add the guess to the list
     list_of_guesses.append(guess)
-    while int(guess) != int(generated_num):
-        guess = input(f"Sorry, that wasn't correct. Guess again: ")
-        list_of_guesses.append(guess)
+
+    # until the guess matches the number, keep guessing
+    while guess != generated_num:
+        if guess> generated_num:
+            # if this is higher, alert the user
+            guess = int(input(f"Good guess, but that was too high. Guess again: "))
+            list_of_guesses.append(guess)
+
+        elif guess < generated_num:
+            #if this is lower
+            guess = int(input(f"So close! But that was too low. Guess again: "))
+            list_of_guesses.append(guess)
+        
 
     print(list_of_guesses)
+    
+    print(f"You did it, {username}! Great job!")
     print(f"You guessed {len(list_of_guesses)} times")
+    print(f"Your median guess was {statistics.median(list_of_guesses)}")
+    print(f"Your mean guess was {statistics.mean(list_of_guesses)}")
+    print(f"Your mode guess was {statistics.mode(list_of_guesses)}")
+    
+    winning_response = input(f"Would you like to play again? Enter Y or N. \n")
+
+    if winning_response.lower() == 'y':
+        start_game()
+    else:
+        print(f"Okay, {username}! Great work and we'll see you later.")
+        sys.exit()
+    
 # Write your code inside this function.
 
 #   When the program starts, we want to:
