@@ -10,16 +10,20 @@ import sys
 import statistics
 
 
+current_game_num = 0
+username = None
+
 # Create the start_game function.
 
-def start_game():
+def start_game(current_game_counter, username):
     # This will hold all guesses
     list_of_guesses = []
     # Welcome the user
-    print("\n|******** WELCOME TO THE NUMBER GUESSING GAME! *********|\n")
+    print("\n=======>", "WELCOME TO THE NUMBER GUESSING GAME!"," <=======\n")
     
-    # For fun, ask their name
-    username = str(input("Please enter your name: \n"))
+    # For fun, the first time they play, ask their name
+    if current_game_counter == 0:
+        username = str(input("Please enter your name: \n"))
     
     # Users can enter any name they want, but it has to be something.
     # While the username is empty, keep prompting them to put their name.
@@ -33,13 +37,14 @@ def start_game():
     
 
 
+    current_game_counter += 1
+
     #remove this later
     print(f"Number is {generated_num}")
-    
     # Get the user's first guess
     # Set a switch to ensure any errors get re-tried
     first_guess = False
-    print(f"Hi {username}! I’ve just generated a secret number for you to guess.\n")
+    print(f"Good luck, {username}! I’ve generated a secret number for you to guess.\n")
     #While the switch is set to false, keep looping
     while first_guess == False:
         try:
@@ -47,43 +52,46 @@ def start_game():
             guess = int(input(f"What do you think the secret number is? \n"))
             first_guess = True
         except ValueError:
-            print("I'm sorry, that's not a valid guess! Please enter an integer between 1 and 10. \n")
+            print("****", "I'm sorry, that's not a valid guess! Please enter an integer between 1 and 10. \n")
         
     
     # once the guess is valid, add it to our list
     list_of_guesses.append(guess)
-
+   
+   
+   
     # until the guess matches the random number, keep guessing
     while guess != generated_num:
+        
         if guess> generated_num:
             # if this is higher, alert the user
             try:
-                guess = int(input(f"Good attempt, but that was too high. Guess again: \n"))
+                guess = int(input(f"Too high. Guess again: \n"))
                 list_of_guesses.append(guess)
             except ValueError:
-                print("Oops, invalid guess! Please enter an integer between 1 and 10. \n")
-
-        else:
+                print("***","Oops, invalid guess! Please enter an integer between 1 and 10. \n")
+        elif guess< generated_num:
             #if this is lower
             try:
-                guess = int(input(f"So close! But that was too low. Guess again: \n"))
+                guess = int(input(f"Too low. Guess again: \n"))
                 list_of_guesses.append(guess)
             except ValueError:
-                print(f"Whoops! That was invalid - please enter an integer between 1 and 10. \n")
+                print(f"****", "Whoops! That was invalid - please enter an integer between 1 and 10. \n")
 
 
     print(list_of_guesses)
     print(f"You did it, {username}! Great job!\n")
-    print(f"|************* YOUR STATS **************|")
-    print(f"You guessed {len(list_of_guesses)} times")
+    print(f"|************* YOUR STATS **************|\n")
+    print(f"This was game {current_game_counter}")
+    print(f"You guessed {len(list_of_guesses)} times to get it right.")
     print(f"Your median guess was {statistics.median(list_of_guesses)}")
     print(f"Your mean guess was {statistics.mean(list_of_guesses)}")
-    print(f"Your mode guess was {statistics.mode(list_of_guesses)}")
+    print(f"Your mode guess was {statistics.mode(list_of_guesses)}\n")
     
     winning_response = input(f"Would you like to play again? Enter Y or N. \n")
 
     if winning_response.lower() == 'y':
-        start_game()
+        start_game(current_game_counter, username)
     else:
         print(f"Okay, {username}! Great work and we'll see you later.")
         sys.exit()
@@ -112,4 +120,4 @@ def start_game():
 
 
     # Kick off the program by calling the start_game function.
-start_game()
+start_game(current_game_num, username)
