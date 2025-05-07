@@ -60,7 +60,7 @@ def start_game(current_game_counter, username):
     # to keep running until a valid guess is entered.
     while True:
         try:
-            guess = int(input(f"What do you think the secret number is? \n"))
+            guess = int(input("What do you think the secret number is? \n"))
             
             # * Check if the first guess is in the range of 1 - 10
             # * If not, show an error
@@ -109,7 +109,7 @@ def start_game(current_game_counter, username):
     #   4. Once the guess is correct, stop looping, inform the user they "Got it" and store the number of guesses it took in a list.
     print(f"You got it, {username}! Great job!\n")
 
-    print(f"|===============> YOUR STATS <===============|\n")
+    print("|===============> YOUR STATS <===============|\n")
     # Tell them how many games they've played
     print(f"This was game #{current_game_counter}")
     # Just for fun, tell them the average number of guesses they have used across all games
@@ -125,7 +125,7 @@ def start_game(current_game_counter, username):
     
     while True:
         #6. Prompt the player to play again
-        winning_response = input(f"Would you like to play again? Enter Y or N. \n")
+        winning_response = input("Would you like to play again? Enter Y or N. \n")
         
         #6a. If they decide to play again, start the game loop over.
         if winning_response.lower() == 'y':
