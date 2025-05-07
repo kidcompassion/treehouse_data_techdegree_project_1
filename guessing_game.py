@@ -122,16 +122,22 @@ def start_game(current_game_counter, username):
     # 5d. The mode of the saved attempts list
     print(f"* Your mode (most frequently occurring number of guesses) across all games is {statistics.mode(list_of_scores)}\n")
 
-
-    #6. Prompt the player to play again
-    winning_response = input(f"Would you like to play again? Enter Y or N. \n")
-    #6a. If they decide to play again, start the game loop over.
-    if winning_response.lower() == 'y':
-        start_game(current_game_counter, username)
-    else:
-        # 6b. If they decide to quit, show them a goodbye message.
-        print(f"Okay, {username}! Great work and we'll see you later.")
-        sys.exit()
+    
+    while True:
+        #6. Prompt the player to play again
+        winning_response = input(f"Would you like to play again? Enter Y or N. \n")
+        
+        #6a. If they decide to play again, start the game loop over.
+        if winning_response.lower() == 'y':
+            start_game(current_game_counter, username)
+            break
+        elif winning_response.lower() == 'n':
+            # 6b. If they decide to quit, show them a goodbye message.
+            print(f"Okay, {username}! Great work and we'll see you later.")
+            sys.exit()
+        else:
+            # if they enter an invalid value, give them an error message
+            print("That was an invalid response. Please try again")
  
 # Kick off the program by calling the start_game function.
 start_game(current_game_num, username)
