@@ -11,32 +11,45 @@ import statistics
 
 
 current_game_num = 0
-username = None
+username = ""
 
-# Create the start_game function.
-
+# 
+# Give it 
 def start_game(current_game_counter, username):
-    # This will hold all guesses
+    """
+    Create the start_game function.
+
+    Args:
+    current_game_counter: tells us how many times the user has played
+    username: tells us the user's name
+
+    """
+
+
+    # This will hold all guesses for the current game
     list_of_guesses = []
+    
     # Welcome the user
     print("\n=======>", "WELCOME TO THE NUMBER GUESSING GAME!"," <=======\n")
+
     
-    # For fun, the first time they play, ask their name
+    # Check the current game counter to see if the user has played before.
+    # If the counter is 0, it means they haven't and can share their name.
+    
     if current_game_counter == 0:
         username = str(input("Please enter your name: \n"))
     
-    # Users can enter any name they want, but it has to be something.
-    # While the username is empty, keep prompting them to put their name.
+    
+    # Users can enter any name containing any type of character,
+    # it just can't be empty. Keep prompting them until they add something.
+    
     while username == "":
         username = str(input("You cannot leave this empty. Please enter your name: \n"))
     
-    # Choose a random number
-    generated_num = random.randint(1, 11)
+    # Choose a random number from 1-10 for user to guess
+    generated_num = random.randint(1, 10)
 
-    
-    
-
-
+    # Increment counter, now that the game is starting.
     current_game_counter += 1
 
     #remove this later
@@ -45,10 +58,11 @@ def start_game(current_game_counter, username):
 
 
     # Set a switch to ensure any errors get re-tried
-    first_guess = False
+    
     print(f"Good luck, {username}! I’ve generated a secret number for you to guess.\n")
-    #While the switch is set to false, keep looping
-    while first_guess == False:
+    
+    # While the switch is set to false, keep looping
+    while True:
         try:
             #Let the user guess. If the guess is valid, set the switch to True to break out of the loop.
             guess = int(input(f"What do you think the secret number is? \n"))
@@ -56,7 +70,7 @@ def start_game(current_game_counter, username):
                 print("Too high!")
             elif guess < generated_num:
                 print("Too low!")
-            first_guess = True
+            break
         except ValueError:
             print("****", "I'm sorry, that's not a valid guess! Please enter an integer between 1 and 10. \n")
         
@@ -71,6 +85,7 @@ def start_game(current_game_counter, username):
         
         try:    
             guess = int(input("Go again: "))
+            list_of_guesses.append(guess)
             # If the guess is a number, give the user some feedback
             if guess > generated_num:
                 print("Too high!")
