@@ -14,7 +14,7 @@ import statistics
 current_game_num = 0
 # This will remember user's name
 username = ""
-# This will keep track of scores
+# This will keep track of scores across across all games
 list_of_scores = []
 
 
@@ -28,7 +28,7 @@ def start_game(current_game_counter, username):
 
     """
 
-    # List of guesses for the current name
+    # List of guesses (for the current name only)
     list_of_guesses = []
     
     #Display an intro/welcome message to the player.
@@ -113,17 +113,15 @@ def start_game(current_game_counter, username):
     # Tell them how many games they've played
     print(f"This was game #{current_game_counter}")
     # Just for fun, tell them the average number of guesses they have used across all games
-    print(f"* On average, it takes you {round(statistics.mean(list_of_scores))} guesses to get the answer.")
     # 5a. How many attempts it took them to get the correct number in this game
     print(f"* This time, you guessed {len(list_of_guesses)} times to get the answer.")
     # 5b. The mean of the saved attempts list
-    print(f"* Your median guess this game was {statistics.median(list_of_guesses)}")
+    print(f"* Your median number of guesses across all games is {round(statistics.median(list_of_scores))}")
     # 5c. The median of the saved attempts list
-    print(f"* Your mean guess this game was {statistics.mean(list_of_guesses)}")
+    print(f"* Your mean (average) number of guesses across all games is {round(statistics.mean(list_of_scores))}")
     # 5d. The mode of the saved attempts list
-    print(f"* Your mode guess this game was {statistics.mode(list_of_guesses)}\n")
+    print(f"* Your mode (most frequently occurring number of guesses) across all games is {statistics.mode(list_of_scores)}\n")
 
-    
 
     #6. Prompt the player to play again
     winning_response = input(f"Would you like to play again? Enter Y or N. \n")
